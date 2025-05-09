@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { recordActions } from "../store";
-import "./App.css";
+import { calculateAverageSleep } from "./utils/functions.js";
 import { availableMoods } from './data.js';
 import Card from "./components/Card";
 import CardContent from "./components/CardContent";
@@ -24,6 +24,11 @@ const formattedDate = date.toLocaleDateString("en-EN", {
 function App() {
 	const recordList = useSelector((state) => state.recordList);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const averageSleepRange = calculateAverageSleep(recordList);
+	const hasLogged = useMemo(() => {
+		
+	}, [date])
+
 
 	function handleOpenModal() {
 		setModalIsOpen(true);
@@ -49,7 +54,7 @@ function App() {
 					</Card>
 					<Card title="Average Sleep" subtitle="(Last 5 check-ins)">
 						<CardContent
-							title="5-6 Hours"
+							title={averageSleepRange}
 							description="Increase from the previous check-ins"
 							className="bg-primary text-white"
 						/>
