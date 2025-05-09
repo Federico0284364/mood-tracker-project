@@ -1,22 +1,29 @@
 import ListItem from "./ListItem";
 import { useState } from "react";
+import { findIconByMood } from '../../utils/functions';
 
-export default function List({ list }) {
-  const [selectedItem, setSelectedItem] = useState(list[0].name);
+export default function List({ list, onSelect, dataType, selectedItem}) {
+	const activeItem = selectedItem ? selectedItem : '';
 
-  function handleSelect(itemName){
-    setSelectedItem(itemName);
-  }
-
+	console.log(list, activeItem);
 	return (
 		<ul className="flex flex-col gap-2">
 			{list.map((listItem) => {
-        let isSelected = false;
-        if (listItem.name === selectedItem){
-          isSelected = true;
-        }
+				let isSelected = false;
+				if (listItem === activeItem) {
+					isSelected = true;
+				}
 				return (
-					<ListItem imgClassName={'w-6 aspect-square'} onSelect={handleSelect} isSelected={isSelected} icon={listItem.icon} key={listItem.name}>{listItem.name}</ListItem>
+					<ListItem
+						dataType={dataType}
+						imgClassName={"w-6 aspect-square"}
+						onSelect={onSelect}
+						isSelected={isSelected}
+						icon={findIconByMood(listItem)}
+						key={listItem}
+					>
+						{listItem}
+					</ListItem>
 				);
 			})}
 		</ul>

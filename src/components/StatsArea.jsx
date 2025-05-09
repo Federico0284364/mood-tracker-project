@@ -1,4 +1,4 @@
-import Stats from "./Stats";
+
 import YAxis from "./UI//YAxis";
 import XAxis from "./UI/XAxis";
 import Column from "./UI/Column";
@@ -13,9 +13,11 @@ const YAxisData = [
 
 const columnWidth = 40;
 const columnGap = 16;
+const stepHeight = 55;
 
-export default function StatsArea({ data }) {
-	const XAxisData = data.map((entry) => {
+export default function StatsArea({ list }) {
+	
+	const XAxisData = list.map((entry) => {
 		return {
 			month: entry.date.toLocaleString("en-EN", { month: "short" }),
 			day: entry.date.getDate(),
@@ -23,25 +25,22 @@ export default function StatsArea({ data }) {
 	});
 
 	return (
-		<div className="relative flex font-normal">
+		<div className="flex flex-1 w-full font-normal">
 			<YAxis
 				data={YAxisData}
 				gapClass="gap-6"
-				className="mt-4 ml-4 flex flex-col"
+				className="ml-4 flex flex-col flex-1 mt-8"
 			/>
-			<div className="ml-4">
-				<div style={{gap: columnGap}} className="flex">
-				{data.map((record) => {
-					return <Column height={60} width={columnWidth} key={record.date + 'column'} data={record} />;
+			
+			<div className="mr-8 h-full flex flex-col justify-end">
+				<div style={{gap: columnGap}} className="flex ">
+				{list.map((record) => {
+					return <Column height={(YAxisData.length - YAxisData.indexOf(record.sleep)) * stepHeight - 4} width={columnWidth} key={record.date + 'column'} data={record} />;
 				})}
 				</div>
 				
 				<XAxis data={XAxisData} width={columnWidth} gap={columnGap} className="flex" />
 			</div>
-
-			{
-				//<Stats stats={data} />
-			}
 		</div>
 	);
 }

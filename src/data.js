@@ -1,15 +1,30 @@
+import veryHappyIcon from "/mood-laugh-svgrepo-com.svg";
+import happyIcon from "/mood-smile-svgrepo-com.svg";
+import neutralIcon from "/mood-flat-svgrepo-com.svg";
+import sadIcon from "/mood-frown-svgrepo-com.svg";
+import verySadIcon from "/mood-sad-svgrepo-com.svg";
+
 export const availableMoods = [
-	{ name: "Very happy", icon: "/mood-laugh-svgrepo-com.svg"},
-	{ name: "Happy", icon:"/mood-smile-svgrepo-com.svg"},
-	{ name: "Neutral", icon: "/mood-flat-svgrepo-com.svg"},
-	{ name: "Sad", icon: "/mood-frown-svgrepo-com.svg"},
-	{ name: "Very sad", icon: "/mood-sad-svgrepo-com.svg"},
+	"Very happy",
+	"Happy",
+	"Neutral",
+	"Sad",
+	"Very sad",
 ];
 
+export const moodIcons = {
+	veryHappyIcon,
+	happyIcon,
+	neutralIcon,
+	sadIcon,
+	verySadIcon
+}
+	
+
 export const availableSleepTimes = [
-	{ name: "0-2 hours"},
-	{ name: "3-4 hours"},
-	{ name: "5-6 hours"},
-	{ name: "7-8 hours"},
-	{ name: "9+ hours"},
-]
+	"0-2 hours",
+	"3-4 hours",
+	"5-6 hours",
+	"7-8 hours",
+	"9+ hours",
+];

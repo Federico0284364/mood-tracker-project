@@ -1,4 +1,9 @@
-export default function ({ list, index }) {
+export default function ({ numberOfElements, index }) {
+	let list = [];
+	for (let i = 1; i <= numberOfElements; i++){
+		list.push(i);
+	}
+
 	return (
 		<div className="flex gap-1">
 			{list.map((item, i) => {

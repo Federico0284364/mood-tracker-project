@@ -32,17 +32,14 @@ function App() {
 	function handleCloseModal(){
 		setModalIsOpen(false);
 	}
-
 	
-	
-
 	return (
 		<>
 			<MoodModal isOpen={modalIsOpen} onClose={handleCloseModal}/>			
 			<Header />
 			<Hero onClick={handleOpenModal} userName={userName} date={formattedDate} />
-			<main className="mt-10 flex justify-center gap-8 mb-10">
-				<Container className="flex flex-col gap-4">
+			<main className="my-10 flex justify-center gap-x-8 h-full">
+				<Container className="flex flex-col h-full gap-4">
 					<Card title="Average Mood" subtitle="(Last 5 check-ins)">
 						<CardContent
 							title={"Neutral"}
@@ -59,11 +56,12 @@ function App() {
 					</Card>
 				</Container>
 
-				<Container className="w-150">
+				<Container className="w-150 flex flex-col">
 					<h1 className="text-3xl">Mood and sleep Trends</h1>
-					<StatsArea data={recordList}/>					
+					<StatsArea list={recordList}/>					
 				</Container>
 			</main>
+			
 		</>
 	);
 }

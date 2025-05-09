@@ -5,21 +5,33 @@ const initialState = [
 	{
 		date: new Date("2025-04-30"),
 		mood: "Happy",
-		sleep: 8,
+		sleep: "3-4 hours",
 		comment: "I feel so good",
 	},
 	{
 		date: new Date("2025-05-01"),
-		mood: "Sad",
-		sleep: 5,
+		mood: "Very sad",
+		sleep: "5-6 hours",
 		comment: "Bruh",
 	}, 
 	{
 		date: new Date("2025-05-02"),
-		mood: "Neutral",
-		sleep: 7,
+		mood: "Sad",
+		sleep: "0-2 hours",
 		comment: "Meh",
-	}
+	},
+	{
+		date: new Date("2025-06-31"),
+		mood: "Very happy",
+		sleep: "9+ hours",
+		comment: "I feel sooooo good",
+	},
+	{
+		date: new Date("2025-07-5"),
+		mood: "Neutral",
+		sleep: "7-8 hours",
+		comment: "Not bad",
+	},
 	
 ];
 
