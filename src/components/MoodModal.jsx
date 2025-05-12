@@ -4,7 +4,7 @@ import Modal from "./UI/Modal";
 import List from "./UI/List";
 import Button from "./UI/Button";
 import ModalContent from "./ModalContent";
-import { availableMoods, availableSleepTimes } from "../data";
+import { availableMoods, availableSleepRanges } from "../data";
 import { findIconByMood } from "../utils/functions";
 import { useDispatch } from "react-redux";
 import { recordActions } from '../../store/index';
@@ -97,7 +97,7 @@ export default function MoodModal({ isOpen, onClose }) {
 					<List
 						dataType="sleep"
 						onSelect={handleSelectedValue}
-						list={availableSleepTimes}
+						list={availableSleepRanges}
 						selectedItem={selectedValue}
 					/>
 				</ModalContent>

@@ -1,7 +1,7 @@
-
 import YAxis from "./UI//YAxis";
 import XAxis from "./UI/XAxis";
 import Column from "./UI/Column";
+import { useRef, useEffect } from "react";
 
 const YAxisData = [
 	"9+ hours",
@@ -16,7 +16,13 @@ const columnGap = 16;
 const stepHeight = 55;
 
 export default function StatsArea({ list }) {
-	
+	const scrollRef = useRef();
+
+	useEffect(() => {
+		const scrollingDiv = scrollRef.current;
+		scrollingDiv.scrollLeft = scrollingDiv.scrollWidth;
+	});
+
 	const XAxisData = list.map((entry) => {
 		return {
 			month: entry.date.toLocaleString("en-EN", { month: "short" }),
@@ -25,21 +31,46 @@ export default function StatsArea({ list }) {
 	});
 
 	return (
-		<div className="flex flex-1 w-full font-normal">
+		<div className="flex flex-1 font-normal">
 			<YAxis
 				data={YAxisData}
 				gapClass="gap-6"
 				className="ml-4 flex flex-col flex-1 mt-8"
 			/>
-			
-			<div className="mr-8 h-full flex flex-col justify-end">
-				<div style={{gap: columnGap}} className="flex ">
-				{list.map((record) => {
-					return <Column height={(YAxisData.length - YAxisData.indexOf(record.sleep)) * stepHeight - 4} width={columnWidth} key={record.date + 'column'} data={record} />;
-				})}
+
+			<div
+				ref={scrollRef}
+				className="mr-8 h-full flex flex-col justify-end flex-wrap overflow-x-auto"
+			>
+				<div
+					style={{
+						gap: columnGap,
+					}}
+					className="flex"
+				>
+					{list.map((record) => {
+						return (
+							<Column
+								width={columnWidth}
+								height={
+									(YAxisData.length -
+										YAxisData.indexOf(record.sleep)) *
+										stepHeight -
+									4
+								}
+								key={record.date + "column"}
+								data={record}
+							/>
+						);
+					})}
 				</div>
-				
-				<XAxis data={XAxisData} width={columnWidth} gap={columnGap} className="flex" />
+
+				<XAxis
+					data={XAxisData}
+					width={columnWidth}
+					gap={columnGap}
+					className="flex"
+				/>
 			</div>
 		</div>
 	);

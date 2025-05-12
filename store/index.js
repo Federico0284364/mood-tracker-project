@@ -1,7 +1,9 @@
 
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
+const localStorageState = null//JSON.parse(localStorage.getItem('mood tracker')); 
+
+const fallbackInitialState = [
 	{
 		date: new Date("2025-04-30"),
 		mood: "Happy",
@@ -32,18 +34,61 @@ const initialState = [
 		sleep: "7-8 hours",
 		comment: "Not bad",
 	},
+	{
+		date: new Date("2025-07-6"),
+		mood: "Neutral",
+		sleep: "7-8 hours",
+		comment: "Not bad",
+	},
+	{
+		date: new Date("2025-07-7"),
+		mood: "Neutral",
+		sleep: "7-8 hours",
+		comment: "Not bad",
+	},
+	{
+		date: new Date("2025-07-8"),
+		mood: "Neutral",
+		sleep: "7-8 hours",
+		comment: "Not bad",
+	},
+	{
+		date: new Date("2025-07-9"),
+		mood: "Neutral",
+		sleep: "7-8 hours",
+		comment: "Not bad",
+	},
+	{
+		date: new Date("2025-07-12"),
+		mood: "Neutral",
+		sleep: "5-6 hours",
+		comment: "Not bad",
+	},
+	{
+		date: new Date("2025-07-13"),
+		mood: "Neutral",
+		sleep: "5-6 hours",
+		comment: "Not bad",
+	},
+	
 	
 ];
+
+const initialState = localStorageState ? localStorageState : fallbackInitialState;
+
+function saveToStorage(){
+	localStorage.setItem('mood tracker', JSON.stringify(store))
+}
 
 const recordSlice = createSlice({
 	name: "recordList",
 	initialState: initialState,
 	reducers: {
 		addRecord: (state, action) => {
-      state.push(action.payload)
+      state.push(action.payload);
     },
     removeRecord: (state, action) => {
-			return state.filter((record) => record.date !== action.payload);			
+			return state.filter((record) => record.date !== action.payload);		
     }
 	},
 });
