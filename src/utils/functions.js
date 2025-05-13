@@ -81,3 +81,19 @@ export function calculateAverageSleep(recordList, shift = 0) {
 
 	return averageHours;
 }
+
+export function getSleepSubtitle(current, previous) {
+		if (current === previous) return "Same as";
+		if (
+			availableSleepRanges.indexOf(current) >
+			availableSleepRanges.indexOf(previous)
+		)
+			return "Increase from";
+		return "Decrease from";
+	}
+
+	export function getMoodSubtitle(current, previous) {
+		if (current === previous) return "Same as";
+		if (current > previous) return "Increase from";
+		return "Decrease from";
+	}

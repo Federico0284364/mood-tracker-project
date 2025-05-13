@@ -3,11 +3,11 @@ export default function YAxis({ data, gapClass, className }) {
 		<ul className={gapClass + " " + className}>
 			{data.map((entry) => {
 				return (
-					<div className="relative" key={entry + "y"}>
-						<li className="relative w-20 font-normal text-sm">
+					<div key={entry + "y"}>
+						<li className="relative w-20 font-normal lg:text-sm">
 							{entry}
 						</li>
-						<hr className="absolute border-t border-dashed border-gray-200 w-[80%]" />
+						<hr className="absolute border-t border-dashed border-gray-200 w-[93%] z-100" />
 					</div>
 				);
 			})}

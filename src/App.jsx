@@ -6,6 +6,8 @@ import {
 	getSleepRange,
 	calculateAverageMood,
 	getMood,
+	getMoodSubtitle,
+	getSleepSubtitle
 } from "./utils/functions.js";
 import { availableMoods, availableSleepRanges } from "./data.js";
 import Card from "./components/Card";
@@ -31,6 +33,7 @@ function App() {
 	const recordList = useSelector((state) => state.recordList);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
+	//calculating mood data
 	const averageMoodValue = useMemo(
 		() => calculateAverageMood(recordList),
 		[recordList.length]
@@ -40,28 +43,14 @@ function App() {
 		[recordList.length]
 	);
 	const averageMood = getMood(averageMoodValue);
-
-	function getMoodSubtitle(current, previous) {
-		if (current === previous) return "Same as";
-		if (current > previous) return "Increase from";
-		return "Decrease from";
-	}
-
-	function getSleepSubtitle(current, previous) {
-		if (current === previous) return "Same as";
-		if (
-			availableSleepRanges.indexOf(current) >
-			availableSleepRanges.indexOf(previous)
-		)
-			return "Increase from";
-		return "Decrease from";
-	}
-
+	
 	const moodSubtitle = getMoodSubtitle(
 		averageMoodValue,
 		prevAverageMoodValue
 	);
 
+
+	//calculating sleep data
 	const averageSleepHours = useMemo(
 		() => calculateAverageSleep(recordList),
 		[recordList.length]
@@ -78,6 +67,7 @@ function App() {
 		prevAverageSleepRange
 	);
 
+
 	const hasLogged =
 		recordList.length > 0 &&
 		recordList[recordList.length - 1].date.toDateString() ===
@@ -92,7 +82,7 @@ function App() {
 	}
 
 	return (
-		<div className="xl:bg-neutral-300 lg:bg-red-200 md:bg-amber-400 h-full pt-2 pb-8 flex flex-col items-center">
+		<div className="h-full pt-2 pb-8 flex flex-col items-center">
 			<MoodModal isOpen={modalIsOpen} onClose={handleCloseModal} />
 			<Header />
 			<Hero
@@ -100,11 +90,11 @@ function App() {
 				userName={userName}
 				date={formattedDate}
 			/>
-			<main className="w-[90vw] flex flex-col gap-x-8">
-				<section className="w-full flex justify-center gap-x-8">
+			<main className="w-[90vw] flex flex-col gap-8">
+				<section className="mt-10 w-full flex justify-center gap-8">
 					{hasLogged ? (
 						<LoggedRecord
-							className="mt-20 gap-x-8 w-full"
+							className="gap-x-8 w-full"
 							mood={recordList[recordList.length - 1].mood}
 							sleep={recordList[recordList.length - 1].sleep}
 							comment={recordList[recordList.length - 1].comment}
@@ -119,8 +109,8 @@ function App() {
 					)}
 				</section>
 
-				<section className="w-full my-8 flex justify-center gap-x-8 h-96">
-					<Container className="flex flex-col h-full min-w-85 w-85 gap-4">
+				<section className="w-full mb-8 flex flex-col lg:flex-row justify-center gap-8 lg:h-96">
+					<Container className="flex flex-col lg:h-94 w-full lg:min-w-85 lg:w-85 gap-4">
 						<Card
 							title="Average Mood"
 							subtitle="(Last 5 check-ins)"
@@ -153,8 +143,8 @@ function App() {
 						</Card>
 					</Container>
 
-					<Container className="max-w-150 flex-1 flex h-full flex-col overflow-x-hidden">
-						<h1 className="text-3xl whitespace-nowrap">
+					<Container className="lg:max-w-150 w-full h-94 flex flex-col overflow-x-hidden">
+						<h1 className="text-xl sm:text-2xl md:text-3xl">
 							Mood and sleep Trends
 						</h1>
 						<StatsArea list={recordList} />

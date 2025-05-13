@@ -13,7 +13,7 @@ const YAxisData = [
 
 const columnWidth = 40;
 const columnGap = 16;
-const stepHeight = 55;
+const stepHeight = 54;
 
 export default function StatsArea({ list }) {
 	const scrollRef = useRef();
@@ -31,16 +31,16 @@ export default function StatsArea({ list }) {
 	});
 
 	return (
-		<div className="flex flex-1 font-normal">
+		<div className="flex flex-1 h-90 relative font-normal">
 			<YAxis
 				data={YAxisData}
 				gapClass="gap-6"
-				className="ml-4 flex flex-col flex-1 mt-8"
+				className="ml-4 flex flex-col h-67 flex-[0.2] mt-8"
 			/>
 
 			<div
 				ref={scrollRef}
-				className="mr-8 h-full flex flex-col justify-end flex-wrap overflow-x-auto"
+				className="mr-[2%] mt-8 flex-1 flex flex-col justify-end flex-wrap overflow-x-scroll"
 			>
 				<div
 					style={{
@@ -55,8 +55,7 @@ export default function StatsArea({ list }) {
 								height={
 									(YAxisData.length -
 										YAxisData.indexOf(record.sleep)) *
-										stepHeight -
-									4
+										stepHeight
 								}
 								key={record.date + "column"}
 								data={record}

@@ -14,7 +14,7 @@ export default function Modal({
 	}
 
 	return createPortal(
-		<motion.div layout className=" flex justify-center items-center bg-black/60 z-100 fixed top-0 right-0 bottom-0 left-0 ">
+		<motion.div layout className=" flex justify-center items-center bg-black/60 z-1000 fixed top-0 right-0 bottom-0 left-0 ">
 			
 			<Container
 				className={
