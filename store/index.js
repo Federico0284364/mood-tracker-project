@@ -89,7 +89,10 @@ const recordSlice = createSlice({
     },
     removeRecord: (state, action) => {
 			return state.filter((record) => record.date !== action.payload);		
-    }
+    },
+		editLastRecord: (state, action) => {
+			state[state.length - 1] = action.payload;
+		}
 	},
 });
 

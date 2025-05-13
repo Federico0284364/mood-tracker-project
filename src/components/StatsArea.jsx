@@ -31,16 +31,16 @@ export default function StatsArea({ list }) {
 	});
 
 	return (
-		<div className="flex flex-1 h-90 relative font-normal">
+		<div className="flex flex-1 h-90 relative font-normal mt-8">
 			<YAxis
 				data={YAxisData}
 				gapClass="gap-6"
-				className="ml-4 flex flex-col h-67 flex-[0.2] mt-8"
+				className="ml-0 lg:ml-4 flex flex-col h-67"
 			/>
 
 			<div
 				ref={scrollRef}
-				className="mr-[2%] mt-8 flex-1 flex flex-col justify-end flex-wrap overflow-x-scroll"
+				className="mr-[2%] flex-1 flex flex-col justify-end flex-wrap overflow-x-scroll"
 			>
 				<div
 					style={{

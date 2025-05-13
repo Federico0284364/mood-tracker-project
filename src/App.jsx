@@ -32,6 +32,7 @@ const formattedDate = date.toLocaleDateString("en-EN", {
 function App() {
 	const recordList = useSelector((state) => state.recordList);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const lastRecord = recordList[recordList.length - 1];
 
 	//calculating mood data
 	const averageMoodValue = useMemo(
@@ -95,6 +96,7 @@ function App() {
 					{hasLogged ? (
 						<LoggedRecord
 							className="gap-x-8 w-full"
+							lastRecord={lastRecord}
 							mood={recordList[recordList.length - 1].mood}
 							sleep={recordList[recordList.length - 1].sleep}
 							comment={recordList[recordList.length - 1].comment}
@@ -144,7 +146,7 @@ function App() {
 					</Container>
 
 					<Container className="lg:max-w-150 w-full h-94 flex flex-col overflow-x-hidden">
-						<h1 className="text-xl sm:text-2xl md:text-3xl">
+						<h1 className="text-xl h-10 sm:text-2xl md:text-3xl">
 							Mood and sleep Trends
 						</h1>
 						<StatsArea list={recordList} />
