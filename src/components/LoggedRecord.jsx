@@ -23,8 +23,9 @@ export default function LoggedRecord({ className, lastRecord }) {
 			setIsEditing("");
 			dispatch(recordActions.editLastRecord({ ...editedRecord }));
 		} else {
+			setEditedRecord(lastRecord);
 			setIsEditing(target);
-			dispatch(recordActions.editLastRecord({ ...editedRecord }));
+			
 		}
 	}
 
@@ -107,7 +108,7 @@ export default function LoggedRecord({ className, lastRecord }) {
 					<p className="text-xl text-neutral-500">Sleep</p>
 					{isEditing === "sleep" ? (
 						<select
-							defaultValue={editedRecord.mood}
+							defaultValue={editedRecord.sleep}
 							onChange={(event) => handleEditSleep(event)}
 							className="text-2xl sm:w-44 bg-neutral-100 rounded-xl p-0.5  text-black"
 						>
