@@ -96,8 +96,9 @@ export default function LoggedRecord({ className, lastRecord }) {
 				></img>
 
 				<Button
+				variant={isEditing === "mood" ? "primary" : "secondary"}
 					onClick={() => handleToggleEdit("mood")}
-					className="text-xs lg:text-sm py-1 px-1 rounded bg-neutral-200 text-neutral-500 absolute top-2 right-2"
+					className="text-xs lg:text-sm py-1 px-1 rounded absolute top-2 right-2"
 				>
 					{isEditing === "mood" ? "Save" : "Edit"}
 				</Button>
@@ -128,8 +129,9 @@ export default function LoggedRecord({ className, lastRecord }) {
 						<p className="text-2xl">{sleep}</p>
 					)}
 					<Button
+					variant={isEditing === "sleep" ? "primary" : "secondary"}
 						onClick={() => handleToggleEdit("sleep")}
-						className="text-xs lg:text-sm py-1 px-1 rounded bg-neutral-200 text-neutral-500 absolute top-2 right-2"
+						className="text-xs lg:text-sm py-1 px-1 rounded absolute top-2 right-2"
 					>
 						{isEditing === "sleep" ? "Save" : "Edit"}
 					</Button>
@@ -149,8 +151,9 @@ export default function LoggedRecord({ className, lastRecord }) {
 						<p className="text-md">{comment}</p>
 					)}
 					<Button
+					variant={isEditing === "comment" ? "primary" : "secondary"}
 						onClick={() => handleToggleEdit("comment")}
-						className="text-xs lg:text-sm py-1 px-1 rounded bg-neutral-200 text-neutral-500 absolute top-2 right-2"
+						className="text-xs lg:text-sm py-1 px-1 rounded absolute top-2 right-2"
 					>
 						{isEditing === "comment" ? "Save" : "Edit"}
 					</Button>

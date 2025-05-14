@@ -111,8 +111,8 @@ function App() {
 					)}
 				</section>
 
-				<section className="w-full mb-8 flex flex-col lg:flex-row justify-center gap-8 lg:h-96">
-					<Container className="flex flex-col lg:h-94 w-full lg:min-w-85 lg:w-85 gap-4">
+				<section className="w-full mb-8 flex flex-col lg:flex-row justify-center gap-8 lg:h-100">
+					<Container className="flex flex-col h-full w-full lg:min-w-85 lg:w-85 gap-4">
 						<Card
 							title="Average Mood"
 							subtitle="(Last 5 check-ins)"
@@ -145,7 +145,7 @@ function App() {
 						</Card>
 					</Container>
 
-					<Container className="lg:max-w-150 w-full h-94 flex flex-col overflow-x-hidden">
+					<Container className="lg:max-w-150 w-full h-full flex flex-col overflow-x-hidden">
 						<h1 className="text-xl h-10 sm:text-2xl md:text-3xl">
 							Mood and sleep Trends
 						</h1>

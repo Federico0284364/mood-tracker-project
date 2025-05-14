@@ -42,13 +42,13 @@ const fallbackInitialState = [
 	},
 	{
 		date: new Date("2025-07-7"),
-		mood: "Neutral",
+		mood: "Very happy",
 		sleep: "7-8 hours",
 		comment: "Not bad",
 	},
 	{
 		date: new Date("2025-07-8"),
-		mood: "Neutral",
+		mood: "Very happy",
 		sleep: "7-8 hours",
 		comment: "Not bad",
 	},
