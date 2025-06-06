@@ -6,6 +6,7 @@ import ResetModal from "./UI/ResetModal";
 
 export default function Header() {
 	const [dropDownIsVisible, setDropdownIsVisible] = useState(false);
+	const [resetModalIsOpen, setResetModalIsOpen] = useState(false);
 	let timeout;
 	const navigate = useNavigate(); 
 
@@ -66,8 +67,8 @@ export default function Header() {
 				className="h-[90%] font-semibold text-black cursor-pointer">
 					v
 				</button>
-				<DropdownMenu isVisible={dropDownIsVisible}>
-					{DROPDOWN_OPTIONS.map((option) => <li className=" rounded py-1 px-1 transition bg-secondary hover:bg-white/70" onClick={option.fun}>{option.name}</li>)}
+				<DropdownMenu isVisible={dropDownIsVisible} options={DROPDOWN_OPTIONS}>
+					
 				</DropdownMenu>
 			</div>
 		</header>

@@ -137,7 +137,7 @@ export default function LoggedRecord({ className, lastRecord }) {
 					</Button>
 				</Container>
 
-				<Container className="flex flex-col w-full min-h-30 lg:h-48 overflow-clip">
+				<Container className="flex flex-col w-full min-h-30 lg:h-48 overflow-y-auto">
 					<p className="text-xl text-neutral-500">
 						Reflection of the day
 					</p>

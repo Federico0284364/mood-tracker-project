@@ -31,7 +31,7 @@ export default function StatsArea({ list }) {
 	});
 
 	return (
-		<div className="flex flex-1 h-90 relative font-normal mt-8">
+		<div className="flex flex-1 h-full relative font-normal mt-8">
 			<YAxis
 				data={YAxisData}
 				gapClass="gap-6"

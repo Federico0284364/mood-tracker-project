@@ -161,7 +161,7 @@ export default function HomePage() {
 				)}
 
 				{recordList.length > 1 && (
-					<section className="w-full mb-8 flex flex-col lg:flex-row justify-center gap-8 lg:h-100">
+					<section className="w-full mb-8 flex flex-col lg:flex-row justify-center gap-8 lg:h-90">
 						<Container className="justify-around flex flex-col h-full w-full lg:min-w-85 lg:w-85 gap-4">
 							<Card
 								title="Average Mood"
@@ -195,9 +195,9 @@ export default function HomePage() {
 							</Card>
 						</Container>
 
-						<Container className="lg:max-w-150 w-full h-full flex flex-col overflow-x-hidden">
+						<Container className="lg:max-w-150 w-full h-90 md:h-full flex flex-col overflow-hidden">
 							<h1 className="text-xl h-10 sm:text-2xl md:text-3xl">
-								Mood and sleep Trends
+								Mood and sleep trends
 							</h1>
 							<StatsArea list={recordList} />
 						</Container>
