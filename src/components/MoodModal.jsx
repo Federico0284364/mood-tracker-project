@@ -7,7 +7,7 @@ import ModalContent from "./ModalContent";
 import { availableMoods, availableSleepRanges } from "../data";
 import { findIconByMood } from "../utils/functions";
 import { useDispatch } from "react-redux";
-import { recordActions } from '../../store/index';
+import { recordActions } from '../store/index';
 
 const NUMBER_OF_PAGES = 4;
 

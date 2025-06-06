@@ -1,7 +1,7 @@
 import { findIconByMood } from "../utils/functions";
 import Container from "./UI/Container";
 import Button from "./UI/Button";
-import { recordActions } from "../../store";
+import { recordActions } from "../store";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { availableMoods, availableSleepRanges } from "../data";

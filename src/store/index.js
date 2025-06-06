@@ -6,7 +6,7 @@ const localStorageState = (() => {
   if (!saved) return null;
   try {
     const parsed = JSON.parse(saved);
-    // Riconverti le stringhe in oggetti Date (se serve)
+    
     return parsed.map((record) => ({
       ...record,
       date: new Date(record.date),
@@ -20,12 +20,21 @@ const fallbackInitialState = [
 	{}
 ];
 
-const initialState = localStorageState ? localStorageState : fallbackInitialState;
+const localStorageUserName = (() => {
+  const userData = JSON.parse(localStorage.getItem('user data'));
+
+  return userData.name
+})()
+
+const initialRecordState = localStorageState ? localStorageState : fallbackInitialState;
+const initialUserState = {
+  name: localStorageUserName ? localStorageUserName : '',
+}
 
 
 const recordSlice = createSlice({
 	name: "recordList",
-	initialState: initialState,
+	initialState: initialRecordState,
 	reducers: {
 		addRecord: (state, action) => {
       state.push(action.payload);
@@ -39,12 +48,31 @@ const recordSlice = createSlice({
 	},
 });
 
+const userSlice = createSlice({
+  name: "userData",
+  initialState: initialUserState,
+  reducers: {
+    updateName: (state, action) => {
+      state.name = action.payload;
+    }
+  }
+})
+
 export const recordActions = recordSlice.actions;
+export const userActions = userSlice.actions;
 const store = configureStore({
-	reducer: {recordList: recordSlice.reducer}
+	reducer: {recordList: recordSlice.reducer, userData: userSlice.reducer}
 })
 store.subscribe(() => {
   const state = store.getState();
-  localStorage.setItem("mood tracker", JSON.stringify(state.recordList));
+  
+  const serializableRecordList = state.recordList.map(record => ({
+    ...record,
+    date: record.date 
+  }));
+  localStorage.setItem("mood tracker", JSON.stringify(serializableRecordList));
+
+  localStorage.setItem("user data", JSON.stringify(state.userData));
 });
+
 export default store;
