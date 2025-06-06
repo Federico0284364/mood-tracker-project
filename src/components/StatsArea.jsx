@@ -23,10 +23,10 @@ export default function StatsArea({ list }) {
 		scrollingDiv.scrollLeft = scrollingDiv.scrollWidth;
 	});
 
-	const XAxisData = list.map((entry) => {
+	const XAxisData = list.slice(1).map((entry) => {
 		return {
-			month: entry.date.toLocaleString("en-EN", { month: "short" }),
-			day: entry.date.getDate(),
+			month: entry.date?.toLocaleString("en-EN", { month: "short" }),
+			day: entry.date?.getDate(),
 		};
 	});
 
@@ -48,7 +48,7 @@ export default function StatsArea({ list }) {
 					}}
 					className="flex"
 				>
-					{list.map((record) => {
+					{list.slice(1).map((record) => {
 						return (
 							<Column
 								width={columnWidth}

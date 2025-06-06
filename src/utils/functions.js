@@ -34,7 +34,7 @@ export function getMood(value) {
 	return availableMoods[value];
 }
 
-export function getSleepHours(range) {
+export function getSleepHours(range = '7-8') {
 	let hours;
 
 	range = range.replace(" hours", "");

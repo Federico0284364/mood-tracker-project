@@ -71,7 +71,7 @@ function App() {
 
 	const hasLogged =
 		recordList.length > 0 &&
-		recordList[recordList.length - 1].date.toDateString() ===
+		recordList[recordList.length - 1].date?.toDateString() ===
 			new Date().toDateString();
 
 	function handleOpenModal() {
@@ -111,8 +111,9 @@ function App() {
 					)}
 				</section>
 
+				{recordList.length > 1 &&
 				<section className="w-full mb-8 flex flex-col lg:flex-row justify-center gap-8 lg:h-100">
-					<Container className="flex flex-col h-full w-full lg:min-w-85 lg:w-85 gap-4">
+					<Container className="justify-around flex flex-col h-full w-full lg:min-w-85 lg:w-85 gap-4">
 						<Card
 							title="Average Mood"
 							subtitle="(Last 5 check-ins)"
@@ -125,7 +126,7 @@ function App() {
 											" the previous 5 check-ins"
 										: ""
 								}
-								className="bg-blue-300 "
+								className="bg-blue-300 lg:min-h-30"
 							/>
 						</Card>
 						<Card
@@ -140,7 +141,7 @@ function App() {
 											" the previous 5 check-ins"
 										: ""
 								}
-								className="bg-primary text-white"
+								className="bg-primary text-white lg:min-h-30"
 							/>
 						</Card>
 					</Container>
@@ -151,7 +152,7 @@ function App() {
 						</h1>
 						<StatsArea list={recordList} />
 					</Container>
-				</section>
+				</section>}
 			</main>
 		</div>
 	);
