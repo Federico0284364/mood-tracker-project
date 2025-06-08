@@ -1,18 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/index.js";
-import {
-	calculateAverageSleep,
-	getSleepRange,
-	calculateAverageMood,
-	getMood,
-	getMoodSubtitle,
-	getSleepSubtitle,
-} from "../utils/functions.js";
-import { availableMoods, availableSleepRanges } from "../data.js";
+
 import Card from "../components/Card";
 import CardContent from "../components/CardContent";
-import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Container from "../components/UI/Container";
 import StatsArea from "../components/StatsArea";
@@ -20,6 +11,7 @@ import MoodModal from "../components/MoodModal";
 import LoggedRecord from "../components/LoggedRecord.jsx";
 import Button from "../components/UI/Button.jsx";
 import Input from "../components/UI/Input.jsx";
+import { useStatsData } from "../utils/stats-data.js";
 
 const date = new Date();
 const formattedDate = date.toLocaleDateString("en-EN", {
@@ -29,12 +21,11 @@ const formattedDate = date.toLocaleDateString("en-EN", {
 	day: "numeric",
 });
 
-
-
 export default function HomePage() {
 	const user = useSelector((state) => state.userData);
 	const recordList = useSelector((state) => state.recordList);
-	console.log("lista", recordList);
+	const { averageMood, moodSubtitle, averageSleepRange, sleepSubtitle } =
+		useStatsData(recordList);
 
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const lastRecord = recordList[recordList.length - 1];
@@ -47,37 +38,6 @@ export default function HomePage() {
 	const dispatch = useDispatch();
 
 	//calculating mood data
-	const averageMoodValue = useMemo(
-		() => calculateAverageMood(recordList),
-		[recordList.length]
-	);
-	const prevAverageMoodValue = useMemo(
-		() => calculateAverageMood(recordList, 5),
-		[recordList.length]
-	);
-	const averageMood = getMood(averageMoodValue);
-
-	const moodSubtitle = getMoodSubtitle(
-		averageMoodValue,
-		prevAverageMoodValue
-	);
-
-	//calculating sleep data
-	const averageSleepHours = useMemo(
-		() => calculateAverageSleep(recordList),
-		[recordList.length]
-	);
-	const prevAverageSleepHours = useMemo(
-		() => calculateAverageSleep(recordList, 5),
-		[recordList.length]
-	);
-	const averageSleepRange = getSleepRange(averageSleepHours);
-	const prevAverageSleepRange = getSleepRange(prevAverageSleepHours);
-
-	const sleepSubtitle = getSleepSubtitle(
-		averageSleepRange,
-		prevAverageSleepRange
-	);
 
 	const hasLogged =
 		recordList.length > 0 &&
@@ -109,8 +69,7 @@ export default function HomePage() {
 	return (
 		<div className="h-full pt-2 pb-8 flex flex-col items-center">
 			<MoodModal isOpen={modalIsOpen} onClose={handleCloseModal} />
-      
-			<Header />
+
 			<Hero
 				hasLogged={hasLogged}
 				userName={user.name}
@@ -120,8 +79,6 @@ export default function HomePage() {
 				onConfirm={handleConfirmUserName}
 			/>
 			<main className="w-[90vw] flex flex-col items-center gap-8">
-				
-
 				<div className="flex flex-col gap-2 items-center">
 					{isEditingName && (
 						<>
@@ -207,4 +164,3 @@ export default function HomePage() {
 		</div>
 	);
 }
-

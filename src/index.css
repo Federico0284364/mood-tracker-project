@@ -18,6 +18,9 @@ html{
   background: linear-gradient(to bottom, rgba(241, 241, 241, 1), rgba(219, 202, 255, 1));
   min-height: 100vh;
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .gradient-color{
@@ -33,7 +36,7 @@ button:hover{
 }
 
 button:active{
-  opacity: 85%;
+  opacity: 80%;
 }
 
 

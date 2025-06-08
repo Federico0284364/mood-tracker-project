@@ -1,4 +1,4 @@
-import { availableMoods, moodIcons } from "../data.js";
+import { availableMoods, moodIcons, availableSleepRanges } from "../data.js";
 const { veryHappyIcon, happyIcon, neutralIcon, sadIcon, verySadIcon } =
 	moodIcons;
 

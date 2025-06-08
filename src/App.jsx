@@ -1,11 +1,15 @@
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import Diary from './pages/Diary';
+import History from './pages/History';
+import RootLayout from "./pages/RootLayout";
 
 const router = createBrowserRouter([
-	{path: '/', element: <HomePage />},
-	{path: '/diary', element: <Diary />}
+	{path: '/', element: <RootLayout />, children: [
+		{index: true, element: <HomePage />},
+	{path: '/history', element: <History />}
+	]}
+	
 ])
 
 function App() {

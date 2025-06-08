@@ -7,7 +7,7 @@ import ModalContent from "./ModalContent";
 import { availableMoods, availableSleepRanges } from "../data";
 import { findIconByMood } from "../utils/functions";
 import { useDispatch } from "react-redux";
-import { recordActions } from '../store/index';
+import { recordActions } from "../store/index";
 
 const NUMBER_OF_PAGES = 4;
 
@@ -23,7 +23,7 @@ export default function MoodModal({ isOpen, onClose }) {
 		sleep: "",
 		comment: "",
 	});
-	const [invalidInput, setInvalidInput] = useState(false); // da aggiungere
+	const [invalidInput, setInvalidInput] = useState(false);
 
 	let dataType;
 	if (pageNumber === 0) {
@@ -38,26 +38,28 @@ export default function MoodModal({ isOpen, onClose }) {
 	useEffect(() => {
 		return () => {
 			setPageNumber(0);
+			setInvalidInput(false);
 		};
 	}, [isOpen]);
 
-
 	function handleSelectedValue(string) {
+		setInvalidInput(false);
 		setSelectedValue(string);
+		
 	}
 
 	function handleNextPage(data) {
-		if (!data && pageNumber + 1 != NUMBER_OF_PAGES){
-			return
+		if (!data && pageNumber + 1 != NUMBER_OF_PAGES && pageNumber != 2) {
+			setInvalidInput(true);
+			return;
 		}
+
 
 		if (pageNumber + 1 === NUMBER_OF_PAGES) {
 			dispatch(recordActions.addRecord(newRecord));
 			onClose();
 		} else {
-			if(pageNumber === 2 && !textarea.current.value){
-				return
-			}
+			
 
 			setNewRecord((prevRecord) => {
 				return {
@@ -70,15 +72,22 @@ export default function MoodModal({ isOpen, onClose }) {
 		}
 	}
 
+	function handlePreviousPage(){
+		setPageNumber((prevPage) => prevPage - 1)
+	}
+
 	return (
 		<Modal onContinue={handleNextPage} onClose={onClose} isOpen={isOpen}>
+		
 			{pageNumber === 0 && (
 				<ModalContent
 					pageNumber={pageNumber}
 					title={"Log your mood"}
 					subtitle={"How was your mood today?"}
 					numberOfPages={NUMBER_OF_PAGES}
+					
 				>
+					
 					<List
 						dataType="mood"
 						onSelect={handleSelectedValue}
@@ -128,18 +137,26 @@ export default function MoodModal({ isOpen, onClose }) {
 					numberOfPages={NUMBER_OF_PAGES}
 				>
 					<div className="font-normal flex h-10 items-center justify-baseline gap-4">
-						<img className="h-full" src={findIconByMood(newRecord.mood)}/>
-						<p >{newRecord.sleep + ' of sleep'}</p>
+						<img
+							className="h-full"
+							src={findIconByMood(newRecord.mood)}
+						/>
+						<p>{newRecord.sleep + " of sleep"}</p>
 					</div>
 					<p className="font-normal">{newRecord.comment}</p>
 				</ModalContent>
 			)}
+			{invalidInput && <p className="text-red-600">Choose an option</p>}
+			<div className="flex gap-1">
+				{pageNumber != 0 && <Button onClick={handlePreviousPage} variant={'secondary'} className="w-10 p-0 text-xl">{"<"}</Button>}
 			<Button
 				onClick={() => handleNextPage(selectedValue)}
-				className="bg-primary text-white px-4 py-2 rounded-lg "
+				className="bg-primary text-white px-4 py-2 rounded-lg flex-1"
 			>
-				{pageNumber + 1 === NUMBER_OF_PAGES ? 'Save' : 'Continue'}
+				{pageNumber + 1 === NUMBER_OF_PAGES ? "Save" : "Continue"}
 			</Button>
+			</div>
+			
 		</Modal>
 	);
 }

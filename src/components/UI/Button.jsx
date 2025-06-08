@@ -8,7 +8,7 @@ export default function Button({className, variant = 'other', children, ...props
   }
 
   return(
-    <button {...props} className={className + baseStyles + variants[variant]}>
+    <button {...props} className={className + ' ' + baseStyles + ' ' + variants[variant]}>
       {children}
     </button>
   )

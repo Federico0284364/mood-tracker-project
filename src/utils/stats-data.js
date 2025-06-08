@@ -1,0 +1,31 @@
+import { useMemo } from "react";
+import {
+  calculateAverageMood,
+  calculateAverageSleep,
+  getMood,
+  getMoodSubtitle,
+  getSleepRange,
+  getSleepSubtitle,
+} from "../utils/functions";
+
+
+
+export function useStatsData(recordList) {
+  const averageMoodValue = useMemo(() => calculateAverageMood(recordList), [recordList.length]);
+  const prevAverageMoodValue = useMemo(() => calculateAverageMood(recordList, 5), [recordList.length]);
+  const averageMood = getMood(averageMoodValue);
+  const moodSubtitle = getMoodSubtitle(averageMoodValue, prevAverageMoodValue);
+
+  const averageSleepHours = useMemo(() => calculateAverageSleep(recordList), [recordList.length]);
+  const prevAverageSleepHours = useMemo(() => calculateAverageSleep(recordList, 5), [recordList.length]);
+  const averageSleepRange = getSleepRange(averageSleepHours);
+  const prevAverageSleepRange = getSleepRange(prevAverageSleepHours);
+  const sleepSubtitle = getSleepSubtitle(averageSleepRange, prevAverageSleepRange);
+
+  return {
+    averageMood,
+    moodSubtitle,
+    averageSleepRange,
+    sleepSubtitle,
+  };
+}
