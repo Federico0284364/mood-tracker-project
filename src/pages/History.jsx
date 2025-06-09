@@ -8,10 +8,12 @@ import Modal from "../components/UI/Modal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { recordActions } from "../store";
+import { motion } from "framer-motion";
 
 export default function History() {
 	const recordList = useSelector((state) => state.recordList);
 	const [openRecord, setOpenRecord] = useState("");
+	const [isDeleting, setIsDeleting] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -19,9 +21,22 @@ export default function History() {
 		setOpenRecord(entry);
 	}
 
-	function handleDeleteRecord() {
+	function handleCloseRecord() {
+		setOpenRecord("");
+		setIsDeleting(false);
+	}
+
+	function handleStartDeleteRecord() {
+		setIsDeleting(true);
+	}
+
+	function handleConfirmDeleteRecord() {
 		dispatch(recordActions.removeRecord(openRecord.date));
 		setOpenRecord("");
+	}
+
+	function handleCancelDeleteRecord() {
+		setIsDeleting(false);
 	}
 
 	function isToday(date) {
@@ -38,11 +53,11 @@ export default function History() {
 			<h1 className="text-4xl font-semibold mb-8">My history</h1>
 
 			<Modal
-				className="max-h-[90vh] max-w-[92vw] overflow-auto"
+				className={"max-h-[90vh] max-w-[92vw] overflow-auto"}
 				isOpen={openRecord}
-				onClose={() => setOpenRecord("")}
+				onClose={handleCloseRecord}
 			>
-				<p>
+				<p className="text-2xl">
 					{openRecord.date?.toLocaleDateString("en-US", {
 						day: "numeric",
 						weekday: "long",
@@ -50,33 +65,62 @@ export default function History() {
 						year: "numeric",
 					})}
 				</p>
-				<div className="flex items-center gap-3">
+				<div className="flex items-center gap-5">
 					<img
-						className="w-8"
+						className="w-16"
 						src={findIconByMood(openRecord.mood)}
 					/>
-					{openRecord.sleep}
+					<p className="text-xl">{openRecord.sleep + " of sleep"}</p>
 				</div>
 
-				{openRecord.comment}
-				<Button
-					onClick={handleDeleteRecord}
-					className="bg-red-500 text-white px-4 py-2 rounded-lg flex-1"
-				>
-					Delete
-				</Button>
+				<p className={isDeleting ? "max-h-[40vh] overflow-clip" : ""}>
+					{openRecord.comment}
+				</p>
+				{!isDeleting ? (
+					<div className="flex">
+						<Button>Edit</Button>
+						<Button
+							onClick={handleStartDeleteRecord}
+							className="bg-red-500 text-white px-4 py-2 rounded-lg flex-1"
+						>
+							Delete
+						</Button>
+					</div>
+				) : (
+					<motion.p
+						initial={{ y: -50 }}
+						animate={{ y: 0 }}
+						transition={{ duration: 0.1 }}
+					>
+						<p>Are you sure you want to delete this entry?</p>
+						<div className="flex gap-3 mt-2">
+							<Button
+								onClick={handleConfirmDeleteRecord}
+								className="px-2 py-0.5 bg-red-500 text-white"
+							>
+								Yes
+							</Button>
+							<Button
+								onClick={handleCancelDeleteRecord}
+								className="px-2 py-0.5 bg-primary text-white"
+							>
+								No
+							</Button>
+						</div>
+					</motion.p>
+				)}
 			</Modal>
 
-			<HistoryStats recordList={recordList} />
-
-			<ul className="flex gap-1 flex-wrap overflow-x-auto">
+			{
+				// <HistoryStats recordList={recordList} />
+			}
+			<ul className="flex gap-1 flex-wrap overflow-x-auto w-[90vw]">
 				{recordList
 					.slice(1)
 					.reverse()
 					.map((entry, index) => {
-						const widthClass = isToday(entry.date)
-							? "basis-full "
-							: "basis-60 ";
+						const widthClass =
+							index === 0 ? "basis-full " : "basis-60 ";
 						const dateColorClass = isToday(entry.date)
 							? "bg-primary "
 							: "bg-blue-400 ";
@@ -135,10 +179,7 @@ export default function History() {
 
 									<hr className="my-2 border-dashed opacity-30" />
 
-									<p
-										className="line-clamp-3 ;
-"
-									>
+									<p className="line-clamp-3">
 										{entry.comment}
 									</p>
 								</Container>

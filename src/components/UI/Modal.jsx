@@ -17,9 +17,13 @@ export default function Modal({
 	return createPortal(
 		<motion.div
 			layout
+			onClick={onClose}
+			
 			className=" flex justify-center items-center bg-black/60 z-10000 fixed top-0 right-0 bottom-0 left-0 "
 		>
 			<motion.Container
+
+			onClick={(e) => e.stopPropagation()}
 				initial={{ scale: 0 }}
 				animate={{ scale: 1 }}
 				transition={{ type: "tween", duration: 0.25 }}
