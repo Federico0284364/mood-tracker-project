@@ -1,5 +1,7 @@
 {
   "name": "mood-tracker-project",
+  "homepage": "https://federico0284364.github.io/mood-tracker/",
+
   "private": true,
   "version": "0.0.0",
   "type": "module",
