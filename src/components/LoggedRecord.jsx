@@ -137,7 +137,7 @@ export default function LoggedRecord({ className, lastRecord }) {
 					</Button>
 				</Container>
 
-				<Container className="flex flex-col w-full min-h-50 lg:h-48 overflow-y-auto">
+				<Container className="flex flex-col w-full md:min-h-50 lg:h-48 overflow-y-auto">
 					<p className="text-xl text-neutral-500">
 						Reflection of the day
 					</p>
@@ -145,10 +145,10 @@ export default function LoggedRecord({ className, lastRecord }) {
 						<textarea
 							onChange={(event) => handleEditComment(event)}
 							value={editedRecord.comment}
-							className="w-full flex-1 rounded-xl bg-neutral-100 resize-none"
+							className="w-full flex-1 rounded-xl min-h-30 bg-neutral-100 resize-none"
 						></textarea>
 					) : (
-						<p className="text-md">{comment}</p>
+						<p className="text-md ">{comment ? comment : <p className="text-neutral-400">- write a comment here -</p>}</p>
 					)}
 					<Button
 					variant={isEditing === "comment" ? "primary" : "secondary"}
