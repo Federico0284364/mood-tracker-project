@@ -57,7 +57,7 @@ export default function History() {
 				isOpen={openRecord}
 				onClose={handleCloseRecord}
 			>
-				<p className="text-2xl">
+				<p className="text-2xl font-semibold">
 					{openRecord.date?.toLocaleDateString("en-US", {
 						day: "numeric",
 						weekday: "long",
@@ -70,7 +70,7 @@ export default function History() {
 						className="w-16"
 						src={findIconByMood(openRecord.mood)}
 					/>
-					<p className="text-xl">{openRecord.sleep + " of sleep"}</p>
+					<p className="text-xl font">{openRecord.sleep + " of sleep"}</p>
 				</div>
 
 				<p className={isDeleting ? "max-h-[40vh] overflow-clip" : ""}>
