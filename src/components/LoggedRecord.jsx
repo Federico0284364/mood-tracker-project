@@ -20,12 +20,11 @@ export default function LoggedRecord({ className, lastRecord }) {
 
 	function handleToggleEdit(target) {
 		if (isEditing === target) {
-			setIsEditing("");
 			dispatch(recordActions.editLastRecord({ ...editedRecord }));
+			setIsEditing("");
 		} else {
-			setEditedRecord(lastRecord);
 			setIsEditing(target);
-			
+			setEditedRecord(lastRecord);
 		}
 	}
 
@@ -96,7 +95,7 @@ export default function LoggedRecord({ className, lastRecord }) {
 				></img>
 
 				<Button
-				variant={isEditing === "mood" ? "primary" : "secondary"}
+					variant={isEditing === "mood" ? "primary" : "secondary"}
 					onClick={() => handleToggleEdit("mood")}
 					className="text-xs lg:text-sm py-1 px-1 rounded absolute top-2 right-2"
 				>
@@ -129,7 +128,9 @@ export default function LoggedRecord({ className, lastRecord }) {
 						<p className="text-2xl">{sleep}</p>
 					)}
 					<Button
-					variant={isEditing === "sleep" ? "primary" : "secondary"}
+						variant={
+							isEditing === "sleep" ? "primary" : "secondary"
+						}
 						onClick={() => handleToggleEdit("sleep")}
 						className="text-xs lg:text-sm py-1 px-1 rounded absolute top-2 right-2"
 					>
@@ -137,7 +138,7 @@ export default function LoggedRecord({ className, lastRecord }) {
 					</Button>
 				</Container>
 
-				<Container className="flex flex-col w-full md:min-h-50 lg:h-48 overflow-y-auto">
+				<Container className="flex flex-col w-full lg:min-h-50 lg:h-48 overflow-y-auto">
 					<p className="text-xl text-neutral-500">
 						Reflection of the day
 					</p>
@@ -148,10 +149,20 @@ export default function LoggedRecord({ className, lastRecord }) {
 							className="w-full flex-1 rounded-xl min-h-30 bg-neutral-100 resize-none"
 						></textarea>
 					) : (
-						<p className="text-md ">{comment ? comment : <p className="text-neutral-400">- write a comment here -</p>}</p>
+						<div className="text-md ">
+							{comment ? (
+								comment
+							) : (
+								<p className="text-neutral-400">
+									- write a comment here -
+								</p>
+							)}
+						</div>
 					)}
 					<Button
-					variant={isEditing === "comment" ? "primary" : "secondary"}
+						variant={
+							isEditing === "comment" ? "primary" : "secondary"
+						}
 						onClick={() => handleToggleEdit("comment")}
 						className="text-xs lg:text-sm py-1 px-1 rounded absolute top-2 right-2"
 					>
