@@ -2,14 +2,17 @@ import profileImg from "../assets/no-profile-picture.webp";
 import { useState, useMemo } from "react";
 import DropdownMenu from "./UI/DropdownMenu";
 import { useNavigate } from "react-router-dom";
-import ResetModal from "./UI/ResetModal";
+import ResetModal from "./ResetModal";
 import ToggleButton from "./UI/ToggleButton";
+import { recordActions } from "../store";
+import { useDispatch } from "react-redux";
 
 export default function Header() {
 	const [dropDownIsVisible, setDropdownIsVisible] = useState(false);
 	const [resetModalIsOpen, setResetModalIsOpen] = useState(false);
 	let timeout;
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const DROPDOWN_OPTIONS = useMemo(() => {
 		return [
@@ -22,7 +25,7 @@ export default function Header() {
 			{
 				name: "Reset",
 				fun: () => {
-					navigate("/");
+					handleStartReset();
 				},
 			},
 		];
@@ -30,6 +33,14 @@ export default function Header() {
 
 	function handleClick() {
 		setDropdownIsVisible(!dropDownIsVisible);
+	}
+
+	function handleStartReset(){
+		setResetModalIsOpen(true);
+	}
+
+	function handleCancelReset(){
+		setResetModalIsOpen(false);
 	}
 
 	function handleOnMouseOut() {
@@ -46,7 +57,7 @@ export default function Header() {
 
 	return (
 		<header className="w-full flex items-center justify-between bg-transparent h-16 mt-2">
-			<ResetModal />
+			<ResetModal isOpen={resetModalIsOpen} onClose={handleCancelReset}/>
 			<div
 				onClick={() => navigate("/")}
 				className="h-full flex items-center gap-3 cursor-pointer"

@@ -1,19 +1,26 @@
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import History from './pages/History';
+import History from "./pages/History";
 import RootLayout from "./pages/RootLayout";
 
-const router = createBrowserRouter([
-	{path: '/', element: <RootLayout />, children: [
-		{index: true, element: <HomePage />},
-	{path: '/history', element: <History />}
-	]}
-	
-])
+const router = createBrowserRouter(
+	[
+		{
+			path: "/",
+			element: <RootLayout />,
+			children: [
+				{ index: true, element: <HomePage /> },
+				{ path: "/history", element: <History /> },
+			],
+		},
+	],
+	{
+		basename: "/mood-tracker/",
+	}
+);
 
 function App() {
-	return <RouterProvider router={router}/>
+	return <RouterProvider router={router} />;
 }
 
 export default App;

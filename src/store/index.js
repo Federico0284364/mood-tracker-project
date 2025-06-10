@@ -21,14 +21,14 @@ const fallbackInitialState = [
 ];
 
 const localStorageUserName = (() => {
-  const userData = JSON.parse(localStorage.getItem('user data'));
+  const userData = JSON.parse(localStorage.getItem('user data')) || {name: null};
 
-  return userData.name
+  return userData.name;
 })()
 
 const initialRecordState = localStorageState ? localStorageState : fallbackInitialState;
 const initialUserState = {
-  name: localStorageUserName ? localStorageUserName : '',
+  name: localStorageUserName,
 }
 
 
@@ -44,7 +44,10 @@ const recordSlice = createSlice({
     },
 		editLastRecord: (state, action) => {
 			state[state.length - 1] = action.payload;
-		}
+		},
+    resetRecordList: (state) => {
+      return fallbackInitialState;
+    }
 	},
 });
 

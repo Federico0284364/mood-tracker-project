@@ -11,6 +11,7 @@ import MoodModal from "../components/MoodModal";
 import LoggedRecord from "../components/LoggedRecord.jsx";
 import Button from "../components/UI/Button.jsx";
 import Input from "../components/UI/Input.jsx";
+import Modal from "../components/UI/Modal.jsx";
 import { useStatsData } from "../utils/stats-data.js";
 
 const date = new Date();
@@ -66,10 +67,12 @@ export default function HomePage() {
 		dispatch(userActions.updateName(""));
 	}
 
+
 	return (
 		<div className="h-full pt-2 pb-8 flex flex-col items-center">
 			<MoodModal isOpen={modalIsOpen} onClose={handleCloseModal} />
 
+			
 			<Hero
 				hasLogged={hasLogged}
 				userName={user.name}

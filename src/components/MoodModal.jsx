@@ -34,7 +34,6 @@ export default function MoodModal({ isOpen, onClose }) {
 		dataType = "comment";
 	}
 
-	console.log(selectedValue, newRecord);
 	useEffect(() => {
 		return () => {
 			setPageNumber(0);

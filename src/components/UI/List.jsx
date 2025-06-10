@@ -5,7 +5,6 @@ import { findIconByMood } from '../../utils/functions';
 export default function List({ list, onSelect, dataType, selectedItem}) {
 	const activeItem = selectedItem ? selectedItem : '';
 
-	console.log(list, activeItem);
 	return (
 		<ul className="flex flex-col gap-2">
 			{list.map((listItem) => {
