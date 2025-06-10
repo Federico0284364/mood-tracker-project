@@ -46,7 +46,7 @@ const recordSlice = createSlice({
 			state[state.length - 1] = action.payload;
 		},
     resetRecordList: (state) => {
-      return fallbackInitialState;
+      return [...fallbackInitialState]
     }
 	},
 });

@@ -9,6 +9,7 @@ import {
 } from "../utils/functions";
 
 export function useStatsData(initialRecordList) {
+  
   const recordList = initialRecordList.slice(1);
 
   const averageMoodValue = useMemo(() => calculateAverageMood(recordList), [recordList.length, ...Object.values(recordList)]);

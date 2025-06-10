@@ -34,7 +34,7 @@ export function getMood(value) {
 	return availableMoods[value];
 }
 
-export function getSleepHours(range = '7-8') {
+export function getSleepHours(range = "7-8") {
 	let hours;
 
 	range = range.replace(" hours", "");
@@ -61,8 +61,11 @@ export function calculateAverageMood(recordList, shift = 0) {
 	const moodValues = last5Entries.map((entry) =>
 		availableMoods.indexOf(entry.mood)
 	);
+	if (moodValues.length === 0) {
+		return -1; // oppure null o NaN, a seconda del tuo uso
+	}
 	const totalMoodValue = moodValues.reduce((accumulator, entry) => {
-		return accumulator + entry;
+		return accumulator + entry, 0;
 	});
 	const averageMoodValue = Math.round(totalMoodValue / moodValues.length);
 
@@ -74,8 +77,11 @@ export function calculateAverageSleep(recordList, shift = 0) {
 	const hours = last5Entries.map((entry) => {
 		return getSleepHours(entry.sleep);
 	});
+	if (hours.length === 0) {
+		return -1; // oppure null o NaN, a seconda del tuo uso
+	}
 	const totalHours = hours.reduce((accumulator, entry) => {
-		return accumulator + entry;
+		return accumulator + entry, 0;
 	});
 	const averageHours = totalHours / hours.length;
 
@@ -83,47 +89,50 @@ export function calculateAverageSleep(recordList, shift = 0) {
 }
 
 export function getSleepSubtitle(current, previous) {
-		if (current === previous) return "Same as";
-		if (
-			availableSleepRanges.indexOf(current) >
-			availableSleepRanges.indexOf(previous)
-		)
-			return "Increase from";
-		return "Decrease from";
-	}
-
-	export function getMoodSubtitle(current, previous) {
-		if (current === previous) return "Same as";
-		if (current > previous) return "Increase from";
-		return "Decrease from";
-	}
-
-	function isPreviousDay(dateA, dateB) {
-  const a = new Date(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
-  const b = new Date(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
-
-  a.setDate(a.getDate() + 1);
-
-  return a.getTime() === b.getTime();
+	if (current === previous) return "Same as";
+	if (
+		availableSleepRanges.indexOf(current) >
+		availableSleepRanges.indexOf(previous)
+	)
+		return "Increase from";
+	return "Decrease from";
 }
 
-export function calculateStreak(recordList){
-  const records = structuredClone(recordList);
-  let streak = 0;
+export function getMoodSubtitle(current, previous) {
+	if (current === previous) return "Same as";
+	if (current > previous) return "Increase from";
+	return "Decrease from";
+}
 
-  if(records[records.length - 1].date.toLocaleDateString() != (new Date()).toLocaleDateString()){
-    return streak;
-  } else {
-    streak ++;
-  }
- 
-  for (let i = records.length - 1; i >= 1; i--){
-    if (isPreviousDay(records[i - 1].date, records[i].date)){
-      streak++;
-    } else {
-      return streak;
-    }
-  }
+function isPreviousDay(dateA, dateB) {
+	const a = new Date(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
+	const b = new Date(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
 
-  return streak;
+	a.setDate(a.getDate() + 1);
+
+	return a.getTime() === b.getTime();
+}
+
+export function calculateStreak(recordList) {
+	const records = structuredClone(recordList);
+	let streak = 0;
+
+	if (
+		records[records.length - 1].date.toLocaleDateString() !=
+		new Date().toLocaleDateString()
+	) {
+		return streak;
+	} else {
+		streak++;
+	}
+
+	for (let i = records.length - 1; i >= 1; i--) {
+		if (isPreviousDay(records[i - 1].date, records[i].date)) {
+			streak++;
+		} else {
+			return streak;
+		}
+	}
+
+	return streak;
 }
