@@ -8,9 +8,9 @@ import {
   getSleepSubtitle,
 } from "../utils/functions";
 
+export function useStatsData(initialRecordList) {
+  const recordList = initialRecordList.slice(1);
 
-
-export function useStatsData(recordList) {
   const averageMoodValue = useMemo(() => calculateAverageMood(recordList), [recordList.length]);
   const prevAverageMoodValue = useMemo(() => calculateAverageMood(recordList, 5), [recordList.length]);
   const averageMood = getMood(averageMoodValue);
@@ -30,32 +30,3 @@ export function useStatsData(recordList) {
   };
 }
 
-function isPreviousDay(dateA, dateB) {
-  const a = new Date(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
-  const b = new Date(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
-
-  a.setDate(a.getDate() + 1);
-
-  return a.getTime() === b.getTime();
-}
-
-export function calculateStreak(recordList){
-  const records = structuredClone(recordList);
-  let streak = 0;
-
-  if(records[records.length - 1].date.toLocaleDateString() != (new Date()).toLocaleDateString()){
-    return streak;
-  } else {
-    streak ++;
-  }
- 
-  for (let i = records.length - 1; i >= 1; i--){
-    if (isPreviousDay(records[i - 1].date, records[i].date)){
-      streak++;
-    } else {
-      return streak;
-    }
-  }
-
-  return streak;
-}

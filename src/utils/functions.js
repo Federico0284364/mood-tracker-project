@@ -97,3 +97,33 @@ export function getSleepSubtitle(current, previous) {
 		if (current > previous) return "Increase from";
 		return "Decrease from";
 	}
+
+	function isPreviousDay(dateA, dateB) {
+  const a = new Date(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
+  const b = new Date(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
+
+  a.setDate(a.getDate() + 1);
+
+  return a.getTime() === b.getTime();
+}
+
+export function calculateStreak(recordList){
+  const records = structuredClone(recordList);
+  let streak = 0;
+
+  if(records[records.length - 1].date.toLocaleDateString() != (new Date()).toLocaleDateString()){
+    return streak;
+  } else {
+    streak ++;
+  }
+ 
+  for (let i = records.length - 1; i >= 1; i--){
+    if (isPreviousDay(records[i - 1].date, records[i].date)){
+      streak++;
+    } else {
+      return streak;
+    }
+  }
+
+  return streak;
+}

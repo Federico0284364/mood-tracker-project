@@ -1,5 +1,5 @@
 import Container from "./UI/Container";
-import { calculateStreak } from "../utils/stats-data";
+import { calculateStreak } from "../utils/functions";
 import { useSelector } from "react-redux";
 
 export default function HistoryStats(){
