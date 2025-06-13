@@ -1,6 +1,12 @@
 import { availableMoods, moodIcons, availableSleepRanges } from "../data.js";
+import { DUMMY_RECORD_LIST } from "../data.js";
+
 const { veryHappyIcon, happyIcon, neutralIcon, sadIcon, verySadIcon } =
 	moodIcons;
+
+	export function filterEmptyEntries(recordList){
+		return recordList.filter(entry => entry.sleep)
+	}
 
 export function findIconByMood(moodString) {
 	const mood = moodString?.toLowerCase();
@@ -57,33 +63,40 @@ export function getSleepHours(range = "7-8") {
 }
 
 export function calculateAverageMood(recordList, shift = 0) {
-	const last5Entries = recordList.slice(recordList.length - 5 - shift);
+	const startIndex = Math.max(0, recordList.length - 5 - shift);
+	const list = filterEmptyEntries(recordList)
+	const last5Entries = list.slice(startIndex);
 	const moodValues = last5Entries.map((entry) =>
 		availableMoods.indexOf(entry.mood)
 	);
 	if (moodValues.length === 0) {
-		return -1; // oppure null o NaN, a seconda del tuo uso
+		return null;
 	}
 	const totalMoodValue = moodValues.reduce((accumulator, entry) => {
-		return accumulator + entry, 0;
-	});
+		return accumulator + entry;
+	}, 0);
 	const averageMoodValue = Math.round(totalMoodValue / moodValues.length);
 
 	return averageMoodValue;
 }
 
 export function calculateAverageSleep(recordList, shift = 0) {
-	const last5Entries = recordList.slice(recordList.length - 5 - shift);
+	const startIndex = Math.max(0, recordList.length - 5 - shift);
+	const list = filterEmptyEntries(recordList)
+	const last5Entries = list.slice(startIndex);
 	const hours = last5Entries.map((entry) => {
 		return getSleepHours(entry.sleep);
 	});
 	if (hours.length === 0) {
-		return -1; // oppure null o NaN, a seconda del tuo uso
+		return null; // oppure null o NaN, a seconda del tuo uso
 	}
+
 	const totalHours = hours.reduce((accumulator, entry) => {
-		return accumulator + entry, 0;
-	});
+		return accumulator + entry;
+	}, 0);
+	
 	const averageHours = totalHours / hours.length;
+
 
 	return averageHours;
 }

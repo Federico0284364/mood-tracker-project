@@ -17,7 +17,11 @@ const localStorageState = (() => {
   }
 })();
 const fallbackInitialState = [
-	{}
+	{date: null,
+    mood: null,
+    sleep: null,
+    comment: null
+  }
 ];
 
 const localStorageUserName = (() => {

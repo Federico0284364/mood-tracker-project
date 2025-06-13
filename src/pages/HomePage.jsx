@@ -13,6 +13,7 @@ import Button from "../components/UI/Button.jsx";
 import Input from "../components/UI/Input.jsx";
 import Modal from "../components/UI/Modal.jsx";
 import { useStatsData } from "../utils/stats-data.js";
+import { DUMMY_RECORD_LIST } from "../data.js";
 
 const date = new Date();
 const formattedDate = date.toLocaleDateString("en-EN", {

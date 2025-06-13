@@ -21,3 +21,36 @@ export const availableSleepRanges = [
 	"7-8 hours",
 	"9+ hours",
 ];
+
+export const DUMMY_RECORD_LIST =  [{},
+  {
+    date: new Date('2025-06-10T08:00:00'),
+    mood: 'Happy',
+    sleep: '7-8 hours',
+    comment: 'Feeling pretty good today!'
+  },
+  {
+    date: new Date('2025-06-11T08:00:00'),
+    mood: 'Very happy',
+    sleep: '9+ hours',
+    comment: 'Slept like a baby, super energized.'
+  },
+  {
+    date: new Date('2025-06-12T08:00:00'),
+    mood: 'Neutral',
+    sleep: '5-6 hours',
+    comment: 'Just a normal day, nothing special.'
+  },
+  {
+    date: new Date('2025-06-13T08:00:00'),
+    mood: 'Sad',
+    sleep: '3-4 hours',
+    comment: 'Couldn’t sleep well, feeling down.'
+  },
+  {
+    date: new Date('2025-06-14T08:00:00'),
+    mood: 'Very sad',
+    sleep: '0-2 hours',
+    comment: 'Tough night, really tired and upset.'
+  }
+];
